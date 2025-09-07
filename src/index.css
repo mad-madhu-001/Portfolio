@@ -1,0 +1,287 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design System - Modern Dark Portfolio Theme */
+@layer base {
+  :root {
+    /* Dark Theme Colors */
+    --background: 199 84% 7%; /* #0D1117 - Dark Charcoal */
+    --foreground: 0 0% 90%; /* #E6E6E6 - Light Gray */
+    
+    --card: 210 22% 11%; /* #161B22 - Card Background */
+    --card-foreground: 0 0% 90%;
+    
+    --popover: 210 22% 11%;
+    --popover-foreground: 0 0% 90%;
+    
+    /* Primary Cyan/Teal Accent */
+    --primary: 166 100% 70%; /* #64FFDA */
+    --primary-foreground: 199 84% 7%;
+    --primary-glow: 166 100% 70% / 0.4;
+    
+    /* Secondary Blue Accent */
+    --secondary: 213 100% 67%; /* #58A6FF */
+    --secondary-foreground: 199 84% 7%;
+    
+    --muted: 213 8% 59%; /* #8B949E - Muted Gray */
+    --muted-foreground: 0 0% 90%;
+    
+    --accent: 166 100% 70%;
+    --accent-foreground: 199 84% 7%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 210 22% 20%;
+    --input: 210 22% 15%;
+    --ring: 166 100% 70%;
+    
+    --radius: 0.5rem;
+    
+    /* Custom Design Tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --gradient-dark: linear-gradient(180deg, hsl(199 84% 7%), hsl(210 22% 11%));
+    --gradient-glow: linear-gradient(135deg, hsl(166 100% 70% / 0.2), hsl(213 100% 67% / 0.2));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow));
+    --shadow-card: 0 10px 40px -15px rgba(0, 0, 0, 0.5);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  /* No dark mode toggle - always dark */
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: hsl(var(--background));
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  /* Background gradient overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle at 20% 50%,
+      hsl(166 100% 70% / 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      hsl(213 100% 67% / 0.05) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  #root {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Custom Animations */
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary-glow));
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary-glow)), 0 0 60px hsl(var(--primary-glow));
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 2s steps(40, end) forwards;
+  }
+  
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+  
+  /* Glow Effects */
+  .glow-primary {
+    box-shadow: 0 0 30px hsl(var(--primary-glow));
+  }
+  
+  .glow-secondary {
+    box-shadow: 0 0 30px hsl(213 100% 67% / 0.4);
+  }
+  
+  /* Gradient Text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Glass Effect */
+  .glass {
+    background: hsl(210 22% 11% / 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid hsl(210 22% 20% / 0.5);
+  }
+  
+  /* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937; /* Track color (gray-800) */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6; /* Thumb color (blue-500) */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb; /* Thumb hover color (blue-600) */
+}
+  
+  /* Hover Underline Animation */
+  .hover-underline {
+    position: relative;
+  }
+  
+  .hover-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: hsl(var(--primary));
+    transition: width 0.3s ease;
+  }
+  
+  .hover-underline:hover::after {
+    width: 100%;
+  }
+  
+  /* Timeline Animation */
+  .timeline-dot {
+    position: relative;
+  }
+  
+  .timeline-dot::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: hsl(var(--primary) / 0.2);
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+}
