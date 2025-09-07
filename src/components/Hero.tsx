@@ -61,13 +61,13 @@ const Hero = () => {
 
   const handleDownloadCV = () => {
     const link = document.createElement("a");
-    link.href = '/resumeone.pdf';
+    link.href = '/resumetwo.pdf';
     link.download = 'Madhusudhan_Reddy_Resume.pdf'; 
     link.click();
   };
 
   const handleViewCV = () => {
-    window.open('/resumeone.pdf', '_blank'); 
+    window.open('/resumetwo.pdf', '_blank'); 
   };
 
   const handleContact = () => {
